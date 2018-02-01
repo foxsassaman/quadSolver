@@ -7,13 +7,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="quadScript.js"></script>
   <!-- styles to override bootstrap settings or add our own styles -->
   <style>
     /* Set gray background color and 100% height */
     .sidenav {
       height: 100%;
+
     }
     /* On small screens, set height to 'auto' for sidenav and grid */
     @media screen and (max-width: 767px) {
@@ -28,20 +31,41 @@
       background-color: #d40400;
       padding: 10px;
       border-radius: 20px;
-      color: white;
+      color: black;
+      font-size: 20px;
+      font-family: 'Oswald', sans-serif;
+
     }
     canvas {
       display: block;
-      border-style: dotted;
-      border-color: white;
       border-width: 5px;
       background-color: #0b377a;
       margin-top: 5px;
+      border-radius: 20px;
+      width: 100%;
+      height: 100%;
     }
+    .answer {
+      width: 100%;
+      background-color: #d40400;
+      padding: 10px;
+      border-radius: 20px;
+      color: black;
+      font-size: 20px;
+      font-family: 'Oswald', sans-serif;
+
+
+
+    }
+
+    body {
+      background-image: url("mathBack.jpg")
+    }
+    
   </style>
 
   </head>
-  <body>
+  <body onload="init()">
    <!--  Nav bar that is responsive (container-fluid with data-toggle at collapse) -->
    <nav class="navbar navbar-inverse">
     <div class="container-fluid">
@@ -55,11 +79,12 @@
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Linear Grapher</a></li>
-          <li><a href="#2">Quadratic Grapher</a></li>
-          <li><a href="#3">Cubic Grapher</a></li>
+          <li ><a href="#">Linear Grapher</a></li>
+          <li class="active"><a href="#2">Quadratic Grapher</a></li>
+          <li ><a href="#3">Cubic Grapher</a></li>
         </ul>
       </div>
+
     </div>
   </nav>
 
@@ -70,16 +95,25 @@
         <div class="coeff">
           <p class="formInfo">Coefficients go here<br>
 
-            a = <input size="5" type="text" id="linA" value="1"> <br>
+            a = <input size="5" type="text" id="quadA" value="1"> <br>
             b = <input size="5" type="text" id="linB" value="0"> <br>
             c = <input size="5" type="text" id="constant" value="0"> <br>
-            <button class="btn" onclick="">Submit Values</button>
-          </p>
+            </p>
+            <button class="btn" onclick="QF()">Submit Values</button>
+          
         </div>
+         <div class="answer">
+        <p id="solution1">X-int</p>
+        <p id="solution2">X-int</p>
+        <p id="y-int">Y-int</p>
+        <p id="vertex">Vertex</p>
+        <p id="correspondingPoint">Corresponding</p>
+      </div>
       </div>
       <div class="col-sm-8 text-left"> 
         <canvas class="canvasGrids" id="mycanvas"></canvas>
       </div>
+     
     </div>
   </div>
   </body>
