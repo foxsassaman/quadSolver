@@ -1,6 +1,7 @@
 //Javascript for drawing and calculating quadratics 2017
 var a, b, c, context, w, h, k=12;
 
+  
 function init() {
   canvas= document.getElementById("mycanvas");
   ctx = canvas.getContext("2d");
@@ -32,9 +33,26 @@ function results() {
   vY = a*Math.pow(vX,2)+b*vX+c*1;
   $("#vertex").text("Vertex is at (" + vX +"," + vY + ")");
   $("#y-int").text("Y intercept is at ( 0 ," + c + ")");
+  ctx.beginPath();
+  ctx.arc()
   $("#correspondingPoint").text("The Corresponding Point intercept is at (" + 2*vX+","+c+")");
+  $("#symLine").text("Line of symmetry is at x="+vX);
+
 
 }  // close results()
+
+function zIn() {
+  k=k+10;
+  ctx.clearRect(0,0, canvas.width, canvas.height);
+  console.log 
+}
+
+function zOut() { 
+  k=k-10;
+  ctx.clearRect(0,0, canvas.width, canvas.height);
+}
+
+
 
 function graphpaper() {
   // the x and y axis drawn
