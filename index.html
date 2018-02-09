@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="quadScript.js"></script>
+  <script type="text/javascript" src="quadScript3.js"></script>
   <!-- styles to override bootstrap settings or add our own styles -->
   <style>
     /* Set gray background color and 100% height */
@@ -95,22 +95,22 @@
         <div class="coeff">
           <p class="formInfo">Coefficients go here<br>
 
-            a = <input size="5" type="text" id="quadA" value="1"> <br>
-            b = <input size="5" type="text" id="linB" value="0"> <br>
-            c = <input size="5" type="text" id="constant" value="0"> <br>
+            a = <input size="5" type="text" id="linA" value="1"> <br>
+            b = <input size="5" type="text" id="linB" value="2"> <br>
+            c = <input size="5" type="text" id="constant" value="-2"> <br>
             </p>
             <button class="btn" onclick="QF()">Submit Values</button>
           
         </div>
          <div class="answer">
-        <p id="solution1">X-int</p>
-        <p id="solution2">X-int</p>
-        <p id="y-int">Y-int</p>
+        <p id="quadformanswer">X-int</p>
+        <p id="quadformanswer2">X-int</p>
+        <p id="yInt">Y-int</p>
         <p id="vertex">Vertex</p>
         <p id="correspondingPoint">Corresponding</p>
         <p id="symLine">Line of Symmetry</p>
-        <p><button type="btn" onclick="zOut()" class="glyphicon glyphicon-plus"></span></button></p>
-        <p><button type="btn" onclick="zIn()" class="glyphicon glyphicon-minus"></span></button></p>
+        <p><button type="btn" onclick="zoomIn()" class="glyphicon glyphicon-plus"></span></button></p>
+        <p><button type="btn" onclick="zoomOut()" class="glyphicon glyphicon-minus"></span></button></p>
         
       </div>
       </div>
