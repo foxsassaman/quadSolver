@@ -166,6 +166,8 @@ function zoomIn() {
 function zoomOut() {
     zoom = zoom - 10;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if (zoom < 1) { alert("Reached Maximum Zoom") }
+    if (zoom < 1) { zoom = zoom + 10 }
     console.log("zoom", zoom)
     results();
     graphpaper();
