@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="quadScript3.js"></script>
+  <script type="text/javascript" src="quadScript.js"></script>
   <!-- styles to override bootstrap settings or add our own styles -->
   <style>
     /* Set gray background color and 100% height */
@@ -100,17 +100,20 @@
             c = <input size="5" type="text" id="constant" value="-2"> <br>
             </p>
             <button class="btn" onclick="QF()">Submit Values</button>
+            <button class="btn" onclick="clearCanvas()">Clear Graph</button>
           
         </div>
          <div class="answer">
-        <p id="quadformanswer">X-int</p>
-        <p id="quadformanswer2">X-int</p>
-        <p id="yInt">Y-int</p>
-        <p id="vertex">Vertex</p>
-        <p id="correspondingPoint">Corresponding</p>
-        <p id="symLine">Line of Symmetry</p>
-        <p><button type="btn" onclick="zoomIn()" class="glyphicon glyphicon-plus"></span></button></p>
-        <p><button type="btn" onclick="zoomOut()" class="glyphicon glyphicon-minus"></span></button></p>
+        <p id="quadformanswer" class="color1">X-Intercept One</p>
+        <p id="quadformanswer2" class="color2">X-Intercept Two</0>
+        <p id="vertex" class="color1">Vertex</p>
+        <p id="yInt" class="color2">Y-Intercept</p>
+        <p id="correspondingPoint" class="color1">The Corresponding Point</p>
+        <p id="pointOnGraph" class="color2">Point On Graph</p>
+        <p><button class="glyphicon glyphicon-plus" onclick="zoomIn()" ></span></button></p>
+        <p><button class="glyphicon glyphicon-minus" onclick="zoomOut()" ></span></button></p>
+        
+        
         
       </div>
       </div>

@@ -1,11 +1,8 @@
-
-
 //Javascript for drawing and calculating quadratics 2017
 var a, b, c, context, w, h, k = 10;
-var zoom = 18;
+var zoom = 30;
 var w = canvas.width;
 var h = canvas.height;
-
 
 function init() {
     canvas = document.getElementById("mycanvas");
@@ -13,7 +10,16 @@ function init() {
     w = canvas.width = 600;
     h = canvas.height = 400;
     console.log('canvas is loaded into context', w);
-    
+    canvasOffset = $("#mycanvas").offset();
+    offsetX = Math.round(canvasOffset.left),
+        offsetY = Math.round(canvasOffset.top);
+    canvas.addEventListener("mousemove", doMouseMove, false);
+    graphpaper();
+    vertLineGrapher();
+    horizLineGrapher();
+    vertLineGrapher2();
+    horizLineGrapher2();
+    graphQuad();
 } // close init
 
 function QF() {
@@ -39,11 +45,18 @@ function QF() {
         console.log(a, b, c);
         $("#quadformanswer").text(quadForm_answer1);
         $("#quadformanswer2").text(quadForm_answer2);
-        ctx.fillStyle = "red"
-        ctx.arc((w / 2) + (quadForm_answer1 * zoom), (h / 2), 6, 0, 2 * Math.PI);
-        ctx.fill();
-        ctx.arc((w / 2) + (quadForm_answer2 * zoom), (h / 2), 6, 0, 2 * Math.PI);
-        ctx.fill();
+
+        function drawXints() {
+            ctx.fillStyle = "red"
+            ctx.beginPath();
+            ctx.arc((w / 2) + (quadForm_answer1 * zoom), (h / 2), 6, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc((w / 2) + (quadForm_answer2 * zoom), (h / 2), 6, 0, 2 * Math.PI);
+            ctx.fill();
+        }
+        drawXints();
+
     }
 
     results();
@@ -52,6 +65,7 @@ function QF() {
     horizLineGrapher();
     vertLineGrapher2();
     horizLineGrapher2();
+    graphQuad();
 } // close QF
 
 function results() {
@@ -60,19 +74,26 @@ function results() {
     vY = a * Math.pow(vX, 2) + b * vX + c * 1;
     $("#vertex").text("Vertex is at (" + vX + "," + vY + ")");
     $("#yInt").text("The Y Intercept is at (0," + c + ")");
+    $("#correspondingPoint").text("(" + 2 * vX + "," + c + ")");
     ctx.fillStyle = "red";
     ctx.beginPath();
     ctx.arc((w / 2) + (vX * zoom), (h / 2) - (vY * zoom), 6, 0, 2 * Math.PI);
     ctx.fill();
-    ctx.arc((w/2),(h/2) - (c*zoom), 6, 0, 2 * Math.PI);
+    ctx.beginPath();
+    ctx.arc((w / 2), (h / 2) - (c * zoom), 6, 0, 2 * Math.PI);
     ctx.fill();
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = "#ff0000"
+    ctx.setLineDash([7, 3]);
+    ctx.beginPath();
+    ctx.moveTo((w / 2) + (vX * zoom), 5);
+    ctx.lineTo((w / 2) + (vX * zoom), h + 5)
     ctx.stroke();
-    $("#correspondingPoint").text("Corresponding Point is at(" + 2 * vX + "," + c + ")")
-    graphQuad();
 } // close results()
 
 function graphpaper() {
     // the x and y axis drawn
+    ctx.setLineDash([0]);
     ctx.strokeStyle = "#000000"
     ctx.lineWidth = 5;
     ctx.beginPath();
@@ -85,7 +106,7 @@ function graphpaper() {
 }
 
 function vertLineGrapher() {
-    ctx.stokeStyle = "rgba(0,255,0,.5)";
+    // ctx.stokeStyle = "rgba(0,255,0,.5)";
     var vlX = w / 2;
     var vlY = 0;
     ctx.fillStyle = "#000000";
@@ -132,11 +153,27 @@ function horizLineGrapher2() {
 function zoomIn() {
     zoom = zoom + 10;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    console.log("zoom", zoom)
+    results();
+    graphpaper();
+    vertLineGrapher();
+    horizLineGrapher();
+    vertLineGrapher2();
+    horizLineGrapher2();
+    graphQuad();
 }
 
 function zoomOut() {
     zoom = zoom - 10;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    console.log("zoom", zoom)
+    results();
+    graphpaper();
+    vertLineGrapher();
+    horizLineGrapher();
+    vertLineGrapher2();
+    horizLineGrapher2();
+    graphQuad();
 }
 
 function graphQuad() {
@@ -145,7 +182,7 @@ function graphQuad() {
         y = c * 1 + b * x + a * Math.pow(x, 2);
         nx = (w / 2 - (i + 1)) / zoom;
         ny = c * 1 + b * nx + a * Math.pow(nx, 2);
-        console.log(x, y, nx, ny)
+        // console.log(x, y, nx, ny)
         ctx.beginPath();
         ctx.lineWidth = 2;
         ctx.strokeStyle = "Red";
@@ -154,3 +191,39 @@ function graphQuad() {
         ctx.stroke();
     }
 }
+
+function clearCanvas() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    graphpaper();
+    vertLineGrapher();
+    horizLineGrapher();
+    vertLineGrapher2();
+    horizLineGrapher2();
+}
+
+function redrawCanvas() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    graphpaper();
+    vertLineGrapher();
+    horizLineGrapher();
+    vertLineGrapher2();
+    horizLineGrapher2();
+    graphQuad();
+    results();
+}
+
+function doMouseMove(event) {
+    redrawCanvas();
+    // always know where ther mouse is located
+    mouseX = event.clientX - offsetX;
+    mouseY = event.clientY - offsetY;
+    pointX = (mouseX - (w / 2)) / zoom;
+    pointY = a * Math.pow(pointX, 2) + b * pointX + c * 1;
+    pointX = pointX.toFixed(2);
+    pointY = pointY.toFixed(2);
+    //console.log(mouseX, mouseY, pointX, pointY, offsetY, offsetX);
+    ctx.beginPath();
+    ctx.arc(mouseX, (h / 2) - (pointY * zoom), 5, 0, 2 * Math.PI);
+    ctx.fill();
+    $("#pointOnGraph").text("Point on the curve: (" + pointX + "," + pointY + ")");
+} // end doMouseMove
